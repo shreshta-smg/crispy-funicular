@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_address_contact_addresses",
+  "info": {
+    "displayName": "contact_address",
+    "icon": "pinMap",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "address_line_1": {
+      "type": "string"
+    },
+    "city": {
+      "type": "string"
+    },
+    "area": {
+      "type": "string"
+    },
+    "pin_code": {
+      "type": "string",
+      "maxLength": 12,
+      "minLength": 6
+    },
+    "state": {
+      "type": "string"
+    },
+    "address_type": {
+      "type": "enumeration",
+      "enum": [
+        "General",
+        "Billing",
+        "Shipping"
+      ],
+      "default": "General"
+    }
+  }
+}

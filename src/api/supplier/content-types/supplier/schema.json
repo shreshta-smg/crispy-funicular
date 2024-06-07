@@ -1,0 +1,48 @@
+{
+  "kind": "collectionType",
+  "collectionName": "suppliers",
+  "info": {
+    "singularName": "supplier",
+    "pluralName": "suppliers",
+    "displayName": "Supplier",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "full_name": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "minLength": 3,
+      "maxLength": 128
+    },
+    "is_active": {
+      "type": "boolean",
+      "default": false
+    },
+    "payment_qr": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "contact_number": {
+      "type": "string",
+      "maxLength": 30,
+      "minLength": 10
+    },
+    "contact_address": {
+      "type": "component",
+      "repeatable": false,
+      "component": "address.contact-address"
+    }
+  }
+}
