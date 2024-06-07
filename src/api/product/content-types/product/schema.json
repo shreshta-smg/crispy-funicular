@@ -11,6 +11,7 @@
   "options": {
     "draftAndPublish": false
   },
+  "pluginOptions": {},
   "attributes": {
     "title": {
       "type": "string",
@@ -54,6 +55,12 @@
       "type": "string",
       "maxLength": 65,
       "minLength": 3
+    },
+    "suppliers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::supplier.supplier",
+      "mappedBy": "products"
     }
   }
 }
