@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- *  product controller
+ *  category controller
  */
 
 const { createCoreController } = require('@strapi/strapi').factories;
 
-module.exports = createCoreController('api::product.product');
+export default createCoreController("api::category.category");
