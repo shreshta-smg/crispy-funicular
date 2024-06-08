@@ -49,6 +49,18 @@
       "type": "string",
       "maxLength": 65,
       "minLength": 3
+    },
+    "categories": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::category.category",
+      "mappedBy": "products"
+    },
+    "suppliers": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::supplier.supplier",
+      "mappedBy": "products"
     }
   }
 }

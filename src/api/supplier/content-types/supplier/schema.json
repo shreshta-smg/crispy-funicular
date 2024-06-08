@@ -43,6 +43,12 @@
       "type": "component",
       "repeatable": false,
       "component": "address.contact-address"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "inversedBy": "suppliers"
     }
   }
 }

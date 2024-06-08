@@ -803,6 +803,11 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
   attributes: {
     name: Attribute.String;
     slug: Attribute.UID<'api::category.category', 'name'>;
+    products: Attribute.Relation<
+      'api::category.category',
+      'manyToMany',
+      'api::product.product'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -888,6 +893,16 @@ export interface ApiProductProduct extends Schema.CollectionType {
         minLength: 3;
         maxLength: 65;
       }>;
+    categories: Attribute.Relation<
+      'api::product.product',
+      'manyToMany',
+      'api::category.category'
+    >;
+    suppliers: Attribute.Relation<
+      'api::product.product',
+      'manyToMany',
+      'api::supplier.supplier'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -932,6 +947,11 @@ export interface ApiSupplierSupplier extends Schema.CollectionType {
         maxLength: 30;
       }>;
     contact_address: Attribute.Component<'address.contact-address'>;
+    products: Attribute.Relation<
+      'api::supplier.supplier',
+      'manyToMany',
+      'api::product.product'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
