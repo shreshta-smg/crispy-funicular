@@ -1,0 +1,77 @@
+{
+  "kind": "collectionType",
+  "collectionName": "orders",
+  "info": {
+    "singularName": "order",
+    "pluralName": "orders",
+    "displayName": "Order"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "payment_status": {
+      "type": "enumeration",
+      "enum": [
+        "Initiated",
+        "Completed",
+        "Rejected",
+        "Cancelled"
+      ],
+      "default": "Initiated",
+      "required": false
+    },
+    "order_status": {
+      "type": "enumeration",
+      "enum": [
+        "Created",
+        "Initiated",
+        "Completed",
+        "Rejected",
+        "Cancelled"
+      ],
+      "default": "Created",
+      "required": false
+    },
+    "total_amount": {
+      "type": "decimal",
+      "default": 0
+    },
+    "shipment_status": {
+      "type": "enumeration",
+      "enum": [
+        "PreTransit",
+        "InTransit",
+        "OutOfdelivery",
+        "FailedAttempt",
+        "Delivered",
+        "WaitingForDelivery",
+        "Returned",
+        "Exception",
+        "Failure"
+      ],
+      "default": "PreTransit"
+    },
+    "payment_ref": {
+      "allowedTypes": [
+        "images",
+        "files"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::customer.customer",
+      "inversedBy": "orders"
+    },
+    "line_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::line-item.line-item",
+      "mappedBy": "order"
+    }
+  }
+}

@@ -61,6 +61,12 @@
       "relation": "manyToMany",
       "target": "api::supplier.supplier",
       "mappedBy": "products"
+    },
+    "line_items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::line-item.line-item",
+      "mappedBy": "product"
     }
   }
 }

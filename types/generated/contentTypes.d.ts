@@ -850,6 +850,11 @@ export interface ApiCustomerCustomer extends Schema.CollectionType {
     email_id: Attribute.String;
     customer_kyc: Attribute.Media<'images'>;
     customer_address: Attribute.Component<'address.contact-address', true>;
+    orders: Attribute.Relation<
+      'api::customer.customer',
+      'oneToMany',
+      'api::order.order'
+    >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     createdBy: Attribute.Relation<
@@ -860,6 +865,122 @@ export interface ApiCustomerCustomer extends Schema.CollectionType {
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::customer.customer',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiLineItemLineItem extends Schema.CollectionType {
+  collectionName: 'line_items';
+  info: {
+    singularName: 'line-item';
+    pluralName: 'line-items';
+    displayName: 'line_item';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    product: Attribute.Relation<
+      'api::line-item.line-item',
+      'manyToOne',
+      'api::product.product'
+    >;
+    quantity: Attribute.Integer &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    sub_total: Attribute.Decimal &
+      Attribute.SetMinMax<
+        {
+          min: 0;
+        },
+        number
+      > &
+      Attribute.DefaultTo<0>;
+    order: Attribute.Relation<
+      'api::line-item.line-item',
+      'manyToOne',
+      'api::order.order'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::line-item.line-item',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::line-item.line-item',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiOrderOrder extends Schema.CollectionType {
+  collectionName: 'orders';
+  info: {
+    singularName: 'order';
+    pluralName: 'orders';
+    displayName: 'Order';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    payment_status: Attribute.Enumeration<
+      ['Initiated', 'Completed', 'Rejected', 'Cancelled']
+    > &
+      Attribute.DefaultTo<'Initiated'>;
+    order_status: Attribute.Enumeration<
+      ['Created', 'Initiated', 'Completed', 'Rejected', 'Cancelled']
+    > &
+      Attribute.DefaultTo<'Created'>;
+    total_amount: Attribute.Decimal & Attribute.DefaultTo<0>;
+    shipment_status: Attribute.Enumeration<
+      [
+        'PreTransit',
+        'InTransit',
+        'OutOfdelivery',
+        'FailedAttempt',
+        'Delivered',
+        'WaitingForDelivery',
+        'Returned',
+        'Exception',
+        'Failure'
+      ]
+    > &
+      Attribute.DefaultTo<'PreTransit'>;
+    payment_ref: Attribute.Media<'images' | 'files'>;
+    customer: Attribute.Relation<
+      'api::order.order',
+      'manyToOne',
+      'api::customer.customer'
+    >;
+    line_items: Attribute.Relation<
+      'api::order.order',
+      'oneToMany',
+      'api::line-item.line-item'
+    >;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::order.order',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::order.order',
       'oneToOne',
       'admin::user'
     > &
@@ -902,6 +1023,11 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::product.product',
       'manyToMany',
       'api::supplier.supplier'
+    >;
+    line_items: Attribute.Relation<
+      'api::product.product',
+      'oneToMany',
+      'api::line-item.line-item'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -989,6 +1115,8 @@ declare module '@strapi/types' {
       'plugin::users-permissions.user': PluginUsersPermissionsUser;
       'api::category.category': ApiCategoryCategory;
       'api::customer.customer': ApiCustomerCustomer;
+      'api::line-item.line-item': ApiLineItemLineItem;
+      'api::order.order': ApiOrderOrder;
       'api::product.product': ApiProductProduct;
       'api::supplier.supplier': ApiSupplierSupplier;
     }

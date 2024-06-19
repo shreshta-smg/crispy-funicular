@@ -37,6 +37,12 @@
       "type": "component",
       "repeatable": true,
       "component": "address.contact-address"
+    },
+    "orders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::order.order",
+      "mappedBy": "customer"
     }
   }
 }

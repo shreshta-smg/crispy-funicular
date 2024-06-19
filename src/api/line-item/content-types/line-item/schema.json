@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "line_items",
+  "info": {
+    "singularName": "line-item",
+    "pluralName": "line-items",
+    "displayName": "line_item"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "line_items"
+    },
+    "quantity": {
+      "type": "integer",
+      "default": 0,
+      "min": 0
+    },
+    "sub_total": {
+      "type": "decimal",
+      "default": 0,
+      "min": 0
+    },
+    "order": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::order.order",
+      "inversedBy": "line_items"
+    }
+  }
+}
